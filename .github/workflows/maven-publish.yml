@@ -45,9 +45,22 @@ jobs:
         tag_name: ${{ github.event.inputs.version }}
         release_name: Release ${{ github.event.inputs.version }}
         body: ${{steps.build_changelog.outputs.changelog}}
+
     - name: archive production artifacts
       uses: actions/upload-artifact@v2
       with:
         name: ${{ github.event.repository.name }}-${{ github.event.inputs.version }}-RELEASE
         path: |
           **/*.jar
+
+    - name: update pom
+      run: mvn versions:set -DnewVersion=${{ steps.pom.outputs.tag }}-SNAPSHOT
+      
+    - name: commit pom
+      run: |
+        git config --global user.name 'pom-bot'
+        git config --global user.email 'pom-bot@cadence.com'
+        git add pom.xml
+        git commit -am "Update POM version to ${{ steps.pom.outputs.tag }}-SNAPSHOT"
+        git push
+
