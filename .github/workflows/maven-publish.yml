@@ -60,6 +60,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
+        ref: main
         fetch-depth: '0'
     - name: update pom
       run: mvn versions:set -DnewVersion=${{ steps.pom.outputs.tag }}-SNAPSHOT
