@@ -63,7 +63,7 @@ jobs:
         ref: main
         fetch-depth: '0'
     - name: update pom
-      run: mvn versions:set -DnewVersion=${{ steps.pom.outputs.tag }}-SNAPSHOT
+      run: mvn versions:set -DnewVersion=${{ github.event.inputs.version }}-SNAPSHOT
       
     - name: commit pom
       run: |
@@ -71,6 +71,6 @@ jobs:
         git config --global user.email 'pom-bot@cadence.com'
         git checkout main
         git add pom.xml
-        git commit -am "Update POM version to ${{ steps.pom.outputs.tag }}-SNAPSHOT"
+        git commit -am "Update POM version to ${{ github.event.inputs.version }}-SNAPSHOT"
         git push
 
