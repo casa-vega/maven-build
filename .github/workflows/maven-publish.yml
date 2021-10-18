@@ -61,7 +61,9 @@ jobs:
       run: |
         git config --global user.name 'pom-bot'
         git config --global user.email 'pom-bot@cadence.com'
+        git stash
         git checkout main
+        git stash ${GITHUB_REF##*/}
         git add pom.xml
         git commit -am "Update POM version to ${{ github.event.inputs.version }}-SNAPSHOT"
         git push
