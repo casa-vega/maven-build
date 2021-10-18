@@ -63,7 +63,8 @@ jobs:
         ref: main
         fetch-depth: '0'
     - name: update pom
-      run: mvn versions:set -DnewVersion=${{ github.event.inputs.version }}-SNAPSHOT
+      run: |
+        sed -e s/${{ github.event.inputs.version }}-RELEASE/${{ github.event.inputs.version }}-SNAPSHOT/g
       
     - name: commit pom
       run: |
