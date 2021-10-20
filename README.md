@@ -1,3 +1,3 @@
 # Example Maven job with automated versioning
 
-test
+test 1
