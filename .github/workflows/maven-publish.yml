@@ -25,8 +25,27 @@ jobs:
 
     - name: Build with Maven
       run: mvn -B package -DnewVersion=${{ github.event.repository.name }}-${{ github.event.inputs.version }}-RELEASE
-      
+
+    - name: Archive Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ github.event.repository.name }}-${{ github.event.inputs.version }}-RELEASE
+        path: |
+          **/*.jar
+
+    - name: Upload Steps for Artifactory
+      run: |
+        curl ${{environment.staging.secrets}}
+
+    - name: Deploy to staging
+      environment: staging
+      run: |
+       ...
+
+    ## below this line is production workflow
+
     - name: Build Changelog
+      environment: production
       id: build_changelog
       uses: mikepenz/release-changelog-builder-action@v2.4.3
       env:
@@ -47,13 +66,12 @@ jobs:
         release_name: ${{ github.event.inputs.version }}
         body: ${{steps.build_changelog.outputs.changelog}}
 
-    - name: Archive Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: ${{ github.event.repository.name }}-${{ github.event.inputs.version }}-RELEASE
-        path: |
-          **/*.jar
-  
+    - name: Production Deploy
+      run: |
+        ...
+
+    - name: Merge
+
     - name: Update POM
       run: |
         sed -e s/${{ github.event.inputs.version }}-RELEASE/${{ github.event.inputs.version }}-SNAPSHOT/g
