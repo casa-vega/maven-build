@@ -10,10 +10,10 @@
 
 ## create release
 - Performs a tag, release, and changelog
-- Artifact shipped
+- Artifact shipped externally
 
 ## deploy development
-- deploys artifact to development environment
+- deploys resulting snapshot artifacts to development environment
 
 ## deploy snapshot
 - environment protected for seperation of duty
