@@ -1,10 +1,9 @@
 name: maven-build-snapshots
 
 on:
-  push
-    #branches:
-    #  - /refs/heads/*
-    #  - !master
+  push:
+    branches:
+      - !master
 
 jobs:
   build:
