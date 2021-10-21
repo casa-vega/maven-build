@@ -1,4 +1,4 @@
-name: maven-build-snapshot
+name: build-snapshot
 
 on:
   push:
