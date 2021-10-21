@@ -1,10 +1,10 @@
-name: maven-build-snapshots
+name: maven-build-snapshot
 
 on:
   push:
-    branches:
+    branches:    
       - '*'
-      - !master
+      - '!master'
 
 jobs:
   build:
