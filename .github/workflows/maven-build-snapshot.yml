@@ -3,6 +3,7 @@ name: maven-build-snapshots
 on:
   push:
     branches:
+      - '*'
       - !master
 
 jobs:
