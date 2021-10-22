@@ -9,7 +9,7 @@ on:
         default: ''
 
 jobs:
-  build:
+  create-tag:
     runs-on: ubuntu-latest
     if: github.ref != 'refs/heads/main'
     steps:
@@ -19,6 +19,11 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         tag: ${{ github.event.inputs.version }}
 
+  create-release:
+    runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/main'
+    needs: create-tag
+    steps:
     - name: Create Release
       uses: actions/create-release@v1
       env:
