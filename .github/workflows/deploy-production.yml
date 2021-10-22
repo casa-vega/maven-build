@@ -12,6 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: github.ref != 'refs/heads/main'
+    environment: production
     steps:
       - name: deploy to production environment
         run: |
