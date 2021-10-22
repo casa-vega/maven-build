@@ -9,7 +9,7 @@ on:
         default: ''
 
 jobs:
-  create-tag:
+  create-git-tag:
     runs-on: ubuntu-latest
     if: github.ref != 'refs/heads/main'
     steps:
@@ -19,10 +19,10 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         tag: ${{ github.event.inputs.version }}
 
-  create-release:
+  create-github-release:
     runs-on: ubuntu-latest
     if: github.ref != 'refs/heads/main'
-    needs: create-tag
+    needs: create-git-tag
     steps:
     - name: Create Release
       uses: actions/create-release@v1
@@ -36,7 +36,7 @@ jobs:
   invoke-staging-deploy:
     runs-on: ubuntu-latest
     if: github.ref != 'refs/heads/main'
-    needs: [create-tag, create-release]
+    needs: [create-git-tag, create-github-release]
     steps:
     - name: Generate Token
       id: ghapp-token
