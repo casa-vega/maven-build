@@ -9,7 +9,7 @@ on:
         default: ''
 
 jobs:
-  build:
+  deploy-production:
     runs-on: ubuntu-latest
     if: github.ref != 'refs/heads/main'
     environment: production
@@ -17,3 +17,18 @@ jobs:
       - name: deploy to production environment
         run: |
           echo "deploying production"
+
+  merge-default-branch:
+    runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/main'
+    steps: 
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+
+    - name: merge
+      uses: devmasx/merge-branch@master
+      with:
+        type: now
+        target_branch: main
+        github_token: ${{ github.token }}
