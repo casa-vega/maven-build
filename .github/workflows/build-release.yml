@@ -25,6 +25,13 @@ jobs:
     - name: Build with Maven
       run: mvn -B package -DnewVersion=${{ github.event.repository.name }}-${{ github.event.inputs.version }}-RELEASE
       
+    - name: Archive Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ github.event.repository.name }}-${{ github.event.inputs.version }}-RELEASE
+        path: |
+          **/*.jar
+      
     - name: Generate Token
       id: ghapp-token
       uses: tibdex/github-app-token@v1
