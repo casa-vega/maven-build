@@ -37,4 +37,4 @@ jobs:
       with:
         workflow: create-release
         token: ${{ steps.ghapp-token.outputs.token }}
-        inputs: '{ "version": "${{ github.event.inputs.version }}", "debug": true }'
+        inputs: '{ "version": "${{ github.event.inputs.version }}" }'
