@@ -5,6 +5,7 @@ Using workflow-dispatch and github-app we can chain specific workflows together
 
 - https://github.com/marketplace/actions/workflow-dispatch
 - https://github.com/marketplace/actions/github-app-token
+- https://github.com/marketplace/actions/merge-branch
 
 ## build-snapshot
 - Performs a snapshot build on any branch that is not master.
