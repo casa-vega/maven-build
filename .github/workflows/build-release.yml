@@ -44,6 +44,6 @@ jobs:
     - name: Create Release
       uses: benc-uk/workflow-dispatch@v1
       with:
-        workflow: create-release
+        workflow: tag-release
         token: ${{ steps.ghapp-token.outputs.token }}
         inputs: '{ "version": "${{ github.event.inputs.version }}" }'
