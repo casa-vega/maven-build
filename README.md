@@ -1,6 +1,8 @@
 
 # Example Maven build and release for Cadence
 
+[![build-release](https://github.com/casa-vega/maven-build/actions/workflows/build-release.yml/badge.svg)](https://github.com/casa-vega/maven-build/actions/workflows/build-release.yml)
+
 Using workflow-dispatch and github-app we can chain specific workflows together
 
 - https://github.com/marketplace/actions/workflow-dispatch
