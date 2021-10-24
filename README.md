@@ -33,7 +33,7 @@ Using workflow-dispatch and github-app we can chain specific workflows together
 - environment protected for seperation of duty
 - deploys cached artifact to staging environment
 
-## 4. deploy production
+### 4. deploy production
 - environment protected for seperation of duty
 - deploys cached artifact to production environment
 
