@@ -1,4 +1,4 @@
-name: build-snapshot
+name: build-master
 
 on:
   push:
@@ -7,7 +7,6 @@ on:
 
 jobs:
   build:
-    environment: development
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
