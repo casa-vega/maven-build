@@ -30,4 +30,3 @@ jobs:
       with:
         workflow: deploy-development
         token: ${{ steps.ghapp-token.outputs.token }}
-        inputs: '{ "version": "${{ github.event.inputs.version }}" }'
