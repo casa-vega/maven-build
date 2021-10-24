@@ -17,3 +17,17 @@ jobs:
         distribution: 'adopt'
         java-version: 8
     - run: mvn -B install -file pom.xml
+    
+    - name: Generate Token
+      id: ghapp-token
+      uses: tibdex/github-app-token@v1
+      with:
+        app_id: ${{ secrets.APP_ID }}
+        private_key: ${{ secrets.PRIVATE_PEM }}
+
+    - name: Deploy Development
+      uses: benc-uk/workflow-dispatch@v1
+      with:
+        workflow: create-release
+        token: ${{ steps.ghapp-token.outputs.token }}
+        inputs: '{ "version": "${{ github.event.inputs.version }}" }'
