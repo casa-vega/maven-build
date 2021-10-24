@@ -28,6 +28,6 @@ jobs:
     - name: Deploy Development
       uses: benc-uk/workflow-dispatch@v1
       with:
-        workflow: create-release
+        workflow: deploy-development
         token: ${{ steps.ghapp-token.outputs.token }}
         inputs: '{ "version": "${{ github.event.inputs.version }}" }'
