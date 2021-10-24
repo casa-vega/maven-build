@@ -9,25 +9,31 @@ Using workflow-dispatch and github-app we can chain specific workflows together
 - https://github.com/marketplace/actions/github-app-token
 - https://github.com/marketplace/actions/merge-branch
 
-## build-snapshot
+## Snapshot Build and Deployments (development branch)
+
+### 1. build-snapshot
 - Performs a snapshot build on any branch that is not master.
 
-## build-release
+### 2. deploy development
+- deploys resulting snapshot artifacts to development environment
+
+---
+
+## Release Build and Deployments 
+
+### 1. build-release
 - Performs a release build on the specified branch using the specified build version
 - Artifact created
 
-## create release
+### 2. create release
 - Performs a tag, release, and changelog
 - Artifact shipped externally
 
-## deploy development
-- deploys resulting snapshot artifacts to development environment
-
-## deploy snapshot
+### 3. deploy snapshot
 - environment protected for seperation of duty
 - deploys cached artifact to staging environment
 
-## deploy production
+## 4. deploy production
 - environment protected for seperation of duty
 - deploys cached artifact to production environment
 
