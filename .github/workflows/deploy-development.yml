@@ -1,12 +1,7 @@
 name: deploy-development
 
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'release/tag version'     
-        required: true
-        default: ''
+  workflow_dispatch
 
 jobs:
   build:
