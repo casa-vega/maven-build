@@ -1,3 +1,5 @@
+name: update-release
+
 on:
   push:
     tags:
