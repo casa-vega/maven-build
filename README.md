@@ -29,7 +29,7 @@ Using workflow-dispatch and github-app we can chain specific workflows together
 - Performs a git tag, github release, and changelog
 - Artifact shipped externally
 
-### 3. Update release
+### 3. update release
 - Performs a POM file version update
 
 ### 3. deploy snapshot
