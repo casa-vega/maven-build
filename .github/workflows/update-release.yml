@@ -20,3 +20,11 @@ jobs:
     - name: Update POM files
       run: |
         for i in $(find * -name pom.xml); do j=$(grep "SNAPSHOT" $i | sed -e 's/<[^>]*>//g'| sed -e 's/ //g'); sed -i "s/$j/${{ github.event.inputs.version }}/g" $i; done
+
+    - name: Commit POM update
+      run: |
+        git config --global user.name 'pom-bot'
+        git config --global user.email 'pom-bot@cadence.com'
+        git add .
+        git commit -am "Update POM version to ${{ github.event.inputs.version }}-SNAPSHOT"
+        git push
