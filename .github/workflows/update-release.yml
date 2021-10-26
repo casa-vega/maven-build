@@ -17,5 +17,6 @@ jobs:
       with:
         fetch-depth: '0'
 
-    - name: git branch
-      run: git branch
+    - name: Update POM files
+      run: |
+        for i in $(find * -name pom.xml); do j=$(grep "SNAPSHOT" $i | sed -e 's/<[^>]*>//g'| sed -e 's/ //g'); sed -i "s/$j/${{ github.event.inputs.version }}/g" $i; done
