@@ -10,7 +10,7 @@ on:
 
 jobs:
   create-git-tag:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # update to self-hosted runner
     if: github.ref != 'refs/heads/main'
     steps:
     - name: Create Tag
@@ -20,7 +20,7 @@ jobs:
         tag: ${{ github.event.inputs.version }}
 
   create-github-release:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # update to self-hosted runner
     if: github.ref != 'refs/heads/main'
     needs: create-git-tag
     steps:
@@ -34,7 +34,7 @@ jobs:
         body: ${{steps.build_changelog.outputs.changelog}}
 
   invoke-update-release:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # update to self-hosted runner
     if: github.ref != 'refs/heads/main'
     needs: [create-git-tag, create-github-release]
     steps:
@@ -53,7 +53,7 @@ jobs:
         inputs: '{ "version": "${{ github.event.inputs.version }}" }'
 
   invoke-staging-deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # update to self-hosted runner
     if: github.ref != 'refs/heads/main'
     needs: [create-git-tag, create-github-release]
     steps:
