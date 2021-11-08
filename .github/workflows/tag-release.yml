@@ -58,7 +58,7 @@ jobs:
 
   invoke-staging-deploy:
     runs-on: ubuntu-latest # update to self-hosted runner
-    if: github.ref != 'refs/heads/main' # never run on default branch
+    if: github.ref != 'refs/heads/main' # update default branch
     needs: [create-git-tag, create-github-release]
     steps:
     # generate token for workflow dispatch
