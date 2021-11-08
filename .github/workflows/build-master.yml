@@ -1,17 +1,16 @@
 name: build-master
 
+# when a change lands on the default branch, perform a build to validate the commit
 on:
   push:
     branches:    
-      - 'main'
+      - 'main' # update to default branch
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    # checkout code base
     - uses: actions/checkout@v2
-    - uses: actions/setup-java@v2
-      with:
-        distribution: 'adopt'
-        java-version: 8
+    # run maven
     - run: mvn -B install -file pom.xml
