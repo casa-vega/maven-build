@@ -1,5 +1,9 @@
 name: build-release
 
+# parameters can be provided manually or programmatically to workflow dispatch
+# this is currently a manual process for Cadence however example of chaining
+# workflows_dispatch jobs together is provided below (Create Release) using the
+# benc-uk/workflow-dispatch@v1 action.
 on:
   workflow_dispatch:
     inputs:
@@ -11,29 +15,27 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/main'
+    if: github.ref != 'refs/heads/main' # change to default
     
+    # checkout, ensure not default branch
     steps: 
     - uses: actions/checkout@v2
       with:
         fetch-depth: '0'
-    
-    - name: Set up JDK 8
-      uses: actions/setup-java@v2
-      with:
-        java-version: '8'
-        distribution: 'adopt'
 
+    # build with maven
     - name: Build with Maven
       run: mvn -B package -DnewVersion=${{ github.event.repository.name }}-${{ github.event.inputs.version }}
       
+    # archive artifact/jar files
     - name: Archive Artifacts
       uses: actions/upload-artifact@v2
       with:
         name: ${{ github.event.repository.name }}-${{ github.event.inputs.version }}-RELEASE
         path: |
           **/*.jar
-      
+
+    # generate a github app token to invoke the release step
     - name: Generate Token
       id: ghapp-token
       uses: tibdex/github-app-token@v1
@@ -41,6 +43,7 @@ jobs:
         app_id: ${{ secrets.APP_ID }}
         private_key: ${{ secrets.PRIVATE_PEM }}
 
+    # create a release with the tag-release workflow (tag-release.yml)
     - name: Create Release
       uses: benc-uk/workflow-dispatch@v1
       with:
