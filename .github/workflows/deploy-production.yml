@@ -10,10 +10,12 @@ on:
 
 jobs:
   deploy-production:
-    runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest # update to self-hosted runner
+    if: github.ref != 'refs/heads/main' # update default branch
+    # uses production environment approval process
     environment: production
     steps:
       - name: deploy to production environment
+        # TODO: add steps
         run: |
           echo "deploying production"
