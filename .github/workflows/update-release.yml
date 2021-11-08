@@ -1,5 +1,6 @@
 name: update-release
 
+# requires a release version
 on:
   workflow_dispatch:
     inputs:
@@ -10,17 +11,20 @@ on:
       
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # update to self-hosted runner
     
+    # checkout
     steps:
     - uses: actions/checkout@v2
       with:
         fetch-depth: '0'
 
+    # update POM files with new version
     - name: Update POM files
       run: |
         for i in $(find * -name pom.xml); do j=$(grep "SNAPSHOT" $i | sed -e 's/<[^>]*>//g'| sed -e 's/ //g'); sed -i "s/$j/${{ github.event.inputs.version }}/g" $i; done
 
+    # commit changes
     - name: Commit POM update
       run: |
         git config --global user.name 'pom-bot'
