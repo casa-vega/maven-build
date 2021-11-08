@@ -9,6 +9,7 @@ on:
         default: ''
 
 jobs:
+  # create a tag using workflow-dispatch input
   create-git-tag:
     runs-on: ubuntu-latest # update to self-hosted runner
     if: github.ref != 'refs/heads/main'
@@ -18,7 +19,8 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         tag: ${{ github.event.inputs.version }}
-
+  
+  # create a release using workflow-dispatch input and previously created tag
   create-github-release:
     runs-on: ubuntu-latest # update to self-hosted runner
     if: github.ref != 'refs/heads/main'
@@ -33,18 +35,20 @@ jobs:
         release_name: ${{ github.event.inputs.version }}
         body: ${{steps.build_changelog.outputs.changelog}}
 
+  # invoke update-release (write versions to POM)
   invoke-update-release:
     runs-on: ubuntu-latest # update to self-hosted runner
-    if: github.ref != 'refs/heads/main'
+    if: github.ref != 'refs/heads/main' # update default branch
     needs: [create-git-tag, create-github-release]
     steps:
+    # generate token for workflow dispatch
     - name: Generate Token
       id: ghapp-token
       uses: tibdex/github-app-token@v1
       with:
         app_id: ${{ secrets.APP_ID }}
         private_key: ${{ secrets.PRIVATE_PEM }}
-
+    # invoke update-release.yml
     - name: Update Release
       uses: benc-uk/workflow-dispatch@v1
       with:
@@ -54,9 +58,10 @@ jobs:
 
   invoke-staging-deploy:
     runs-on: ubuntu-latest # update to self-hosted runner
-    if: github.ref != 'refs/heads/main'
+    if: github.ref != 'refs/heads/main' # never run on default branch
     needs: [create-git-tag, create-github-release]
     steps:
+    # generate token for workflow dispatch
     - name: Generate Token
       id: ghapp-token
       uses: tibdex/github-app-token@v1
@@ -64,6 +69,7 @@ jobs:
         app_id: ${{ secrets.APP_ID }}
         private_key: ${{ secrets.PRIVATE_PEM }}
 
+    # invoke deploy to staging environment
     - name: Deploy Staging
       uses: benc-uk/workflow-dispatch@v1
       with:
