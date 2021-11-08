@@ -1,4 +1,4 @@
-name: build-master
+name: build-default
 
 # when a change lands on the default branch, perform a build to validate the commit
 on:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # update to self-hosted runner
     steps:
     # checkout code base
     - uses: actions/checkout@v2
