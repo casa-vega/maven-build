@@ -10,19 +10,23 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest # update to self-hosted runner
+    if: github.ref != 'refs/heads/main' # update default branch
+    # uses staging environment approval process
     environment: staging
     steps:
+      # deploy to staging
       - name: deploy to staging environment
+        # TODO: add steps
         run: |
           echo "deploying staging"
           
   invoke-production-deploy:
-    runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest # update to self-hosted runner
+    if: github.ref != 'refs/heads/main' # update default branch
     needs: deploy
     steps:
+    # generate token to for workflow dispatch
     - name: Generate Token
       id: ghapp-token
       uses: tibdex/github-app-token@v1
@@ -30,6 +34,7 @@ jobs:
         app_id: ${{ secrets.APP_ID }}
         private_key: ${{ secrets.PRIVATE_PEM }}
 
+    # Invoke production deployment
     - name: Deploy Staging
       uses: benc-uk/workflow-dispatch@v1
       with:
