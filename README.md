@@ -9,6 +9,12 @@ Using workflow-dispatch and github-app we can chain specific workflows together
 - https://github.com/marketplace/actions/github-app-token
 - https://github.com/marketplace/actions/merge-branch
 
+
+## Default Build and Deployments (typically main or master branch)
+
+### 1. build default
+- Performs a snapshot build on the default branch.
+
 ## Snapshot Build and Deployments (development branch)
 
 ### 1. build snapshot
