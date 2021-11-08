@@ -7,8 +7,8 @@ Using workflow-dispatch and github-app we can chain specific workflows together
 
 - https://github.com/marketplace/actions/workflow-dispatch
 - https://github.com/marketplace/actions/github-app-token
-- https://github.com/marketplace/actions/merge-branch
-
+- https://github.com/marketplace/actions/commit-tagger
+- https://github.com/actions/create-release (archived)
 
 ## Default Build and Deployments (typically main or master branch)
 
