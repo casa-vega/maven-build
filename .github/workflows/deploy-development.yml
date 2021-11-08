@@ -6,8 +6,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/main'
+    if: github.ref != 'refs/heads/main' # update default branch
     steps:
+      # deploy to development
       - name: deploy to development environment
+        # TODO: update steps
         run: |
           echo "deploying development"
